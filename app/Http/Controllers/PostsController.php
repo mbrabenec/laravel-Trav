@@ -10,7 +10,9 @@ class PostsController extends Controller
 {
     public function index ()
     {
-        return view('posts.index');
+        $posts = Post::paginate(3);
+
+        return view('posts.index', compact(['posts']));
     }
     
     public function store (Request $request)
@@ -24,7 +26,7 @@ class PostsController extends Controller
         //     'user_id => auth()->id()
         // ])
 
-        dd($request->user()->posts);
+        // dd($request->user());
 
         $request->user()->posts()->create($request->only('body'));
 
